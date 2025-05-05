@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await apiFetch("/login", "POST", { email, password });
       if (res.access_token) {
         localStorage.setItem("token", res.access_token);
+        loginForm.reset();
         window.location.href = "dashboard.html";
       } else {
         alert(res.msg);

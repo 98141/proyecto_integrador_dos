@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <title>Login</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <h2>Login</h2>
-  <form id="loginForm">
-    <input type="email" id="email" placeholder="Correo" required />
-    <input type="password" id="password" placeholder="Contraseña" required />
-    <button type="submit">Entrar</button>
-  </form>
-  <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Iniciar Sesión</h1>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Correo" required />
+        <input
+          type="password"
+          id="password"
+          placeholder="Contraseña"
+          required
+        />
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+      <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+    </div>
 
-  <script type="module" src="auth/login.js"></script>
-</body>
+    <script type="module" src="auth/login.js"></script>
+  </body>
 </html>
-

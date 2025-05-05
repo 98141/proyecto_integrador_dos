@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const res = await apiFetch("/register", "POST", { email, password });
       if (res.msg.includes("registrado")) {
+        registerForm.reset();
         window.location.href = "index.html";
       } else {
         alert(res.msg);
