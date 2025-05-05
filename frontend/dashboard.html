@@ -1,31 +1,21 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8" />
   <title>Dashboard</title>
-  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <h1>Panel de Control</h1>
-  <button id="logout">Cerrar sesión</button>
-
-  <section>
-    <h2>Categorías</h2>
-    <div id="categorias"></div>
-    <input type="text" id="nuevaCategoria" placeholder="Nueva categoría" />
-    <button id="agregarCategoria">Agregar</button>
-  </section>
-
-  <section>
-    <h2>Gastos</h2>
-    <div id="gastos"></div>
-    <input type="number" id="monto" placeholder="Monto" />
-    <input type="text" id="descripcion" placeholder="Descripción" />
-    <input type="text" id="categoriaId" placeholder="ID Categoría" />
-    <button id="agregarGasto">Agregar Gasto</button>
-  </section>
-
-  <script type="module" src="script/categorias.js"></script>
-  <script type="module" src="script/gastos.js"></script>
+  <div id="navbar"></div>
+  <h2>Bienvenido al panel de control</h2>
+  <script>
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("navbar").innerHTML = html;
+        document.getElementById("logout").addEventListener("click", () => {
+          localStorage.removeItem("token");
+          window.location.href = "index.html";
+        });
+      });
+  </script>
 </body>
 </html>

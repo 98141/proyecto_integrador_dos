@@ -1,38 +1,68 @@
 import { apiFetch } from "./api.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("token");
-  const monto = document.getElementById("monto");
-  const descripcion = document.getElementById("descripcion");
-  const categoria_id = document.getElementById("categoriaId");
+const token = localStorage.getItem("token");
+if (!token) window.location.href = "index.html";
 
-  if (!token) {
-    window.location.href = "index.html"; // Redirige si no hay token
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const descripcion = document.getElementById("descripcion");
+  const monto = document.getElementById("monto");
+  const categoriaId = document.getElementById("categoriaId");
+  const btn = document.getElementById("agregarGasto");
 
   async function cargarGastos() {
     const gastos = await apiFetch("/gastos", "GET", null, token);
     const contenedor = document.getElementById("gastos");
-    contenedor.innerHTML = gastos.map(g =>
-      `<p>${g.descripcion}: $${g.monto} (cat: ${g.categoria_id})</p>`).join("");
+    contenedor.innerHTML = `
+      <table border="1">
+        <thead>
+          <tr><th>Descripción</th><th>Monto</th><th>Categoría</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          ${gastos.map(g => `
+            <tr data-id="${g._id}">
+              <td contenteditable="true">${g.descripcion}</td>
+              <td contenteditable="true">${g.monto}</td>
+              <td contenteditable="true">${g.categoria_id}</td>
+              <td>
+                <button class="guardar">Guardar</button>
+                <button class="eliminar">Eliminar</button>
+              </td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    `;
+
+    document.querySelectorAll(".guardar").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        const fila = e.target.closest("tr");
+        const id = fila.dataset.id;
+        const descripcion = fila.children[0].innerText;
+        const monto = parseFloat(fila.children[1].innerText);
+        const categoria_id = fila.children[2].innerText;
+        await apiFetch(`/gastos/${id}`, "PUT", { descripcion, monto, categoria_id }, token);
+      });
+    });
+
+    document.querySelectorAll(".eliminar").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        const fila = e.target.closest("tr");
+        const id = fila.dataset.id;
+        await apiFetch(`/gastos/${id}`, "DELETE", null, token);
+        fila.remove();
+      });
+    });
   }
 
-  document.getElementById("agregarGasto").addEventListener("click", async () => {
-    if (!monto.value || !descripcion.value || !categoria_id.value) {
-      return alert("Por favor llena todos los campos");
-    }
-
+  btn.addEventListener("click", async () => {
+    if (!descripcion.value || !monto.value || !categoriaId.value) return;
     await apiFetch("/gastos", "POST", {
-      monto: parseFloat(monto.value),
       descripcion: descripcion.value,
-      categoria_id: categoria_id.value
+      monto: parseFloat(monto.value),
+      categoria_id: categoriaId.value
     }, token);
-
-    // 🔴 limpiar campos
-    monto.value = "";
     descripcion.value = "";
-    categoria_id.value = "";
-
+    monto.value = "";
+    categoriaId.value = "";
     cargarGastos();
   });
 

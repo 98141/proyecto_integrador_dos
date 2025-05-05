@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Categorías</title>
-    <link rel="stylesheet" href="css/categorias.css" />
-  </head>
-  <body>
-    <h1>Categorías</h1>
-    <div id="categorias"></div>
-    <input type="text" id="nuevaCategoria" placeholder="Nueva categoría" />
-    <button id="agregarCategoria">Agregar</button>
-    <br /><br />
-    <a href="dashboard.html">Volver al dashboard</a>
+<html>
+<head>
+  <title>Categorías</title>
+</head>
+<body>
+  <div id="navbar"></div>
+  <h2>Categorías</h2>
+  <input type="text" id="nuevaCategoria" placeholder="Nombre nueva categoría">
+  <button id="agregarCategoria">Agregar</button>
+  <div id="categorias"></div>
 
-    <script type="module" src="js/categorias.js"></script>
-  </body>
+  <script>
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("navbar").innerHTML = html;
+        document.getElementById("logout").addEventListener("click", () => {
+          localStorage.removeItem("token");
+          window.location.href = "index.html";
+        });
+      });
+  </script>
+  <script type="module" src="script/categorias.js"></script>
+</body>
 </html>

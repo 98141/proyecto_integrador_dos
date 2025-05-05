@@ -1,24 +1,54 @@
 import { apiFetch } from "./api.js";
 
+const token = localStorage.getItem("token");
+if (!token) window.location.href = "index.html";
+
 document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("token");
   const input = document.getElementById("nuevaCategoria");
   const btn = document.getElementById("agregarCategoria");
-
-  if (!token) {
-    window.location.href = "index.html"; // Redirige si no hay token
-  }
 
   async function cargarCategorias() {
     const categorias = await apiFetch("/categorias", "GET", null, token);
     const contenedor = document.getElementById("categorias");
-    contenedor.innerHTML = categorias
-      .map((c) => `<p>${c.nombre} (ID: ${c._id})</p>`)
-      .join("");
+    contenedor.innerHTML = `
+      <table border="1">
+        <thead>
+          <tr><th>Nombre</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          ${categorias.map(cat => `
+            <tr data-id="${cat._id}">
+              <td contenteditable="true">${cat.nombre}</td>
+              <td>
+                <button class="guardar">Editar</button>
+                <button class="eliminar">Eliminar</button>
+              </td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    `;
+
+    document.querySelectorAll(".guardar").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        const fila = e.target.closest("tr");
+        const id = fila.dataset.id;
+        const nombre = fila.children[0].innerText;
+        await apiFetch(`/categorias/${id}`, "PUT", { nombre }, token);
+      });
+    });
+
+    document.querySelectorAll(".eliminar").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        const fila = e.target.closest("tr");
+        const id = fila.dataset.id;
+        await apiFetch(`/categorias/${id}`, "DELETE", null, token);
+        fila.remove();
+      });
+    });
   }
 
   btn.addEventListener("click", async () => {
-    if (!input.value.trim()) return alert("Ingrese un nombre.");
+    if (!input.value.trim()) return;
     await apiFetch("/categorias", "POST", { nombre: input.value }, token);
     input.value = "";
     cargarCategorias();

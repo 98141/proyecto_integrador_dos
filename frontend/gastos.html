@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Gastos</title>
-    <link rel="stylesheet" href="css/gastos.css" />
-  </head>
-  <body>
-    <h1>Gastos</h1>
-    <div id="gastos"></div>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/gastos.css">
+  <title>Gastos</title>
+</head>
+<body>
+  <div id="navbar"></div>
+  <h2>Gastos</h2>
+  <input type="text" id="descripcion" placeholder="Descripción">
+  <input type="number" id="monto" placeholder="Monto">
+  <input type="text" id="categoriaId" placeholder="ID Categoría">
+  <button id="agregarGasto">Agregar</button>
+  <div id="gastos"></div>
 
-    <input type="number" id="monto" placeholder="Monto" />
-    <input type="text" id="descripcion" placeholder="Descripción" />
-    <input type="text" id="categoriaId" placeholder="ID Categoría" />
-    <button id="agregarGasto">Agregar Gasto</button>
-
-    <br /><br />
-    <a href="dashboard.html">Volver al dashboard</a>
-
-    <script type="module" src="js/gastos.js"></script>
-  </body>
+  <script>
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("navbar").innerHTML = html;
+        document.getElementById("logout").addEventListener("click", () => {
+          localStorage.removeItem("token");
+          window.location.href = "index.html";
+        });
+      });
+  </script>
+  <script type="module" src="script/gastos.js"></script>
+</body>
 </html>
