@@ -1,11 +1,12 @@
-import jwt
-import datetime
+from flask_jwt_extended import (
+    JWTManager, create_access_token, jwt_required, get_jwt_identity
+)
 
-SECRET_KEY = "mi_clave_secreta"
+def configure_jwt(app):
+    app.config["JWT_SECRET_KEY"] = "supersecretkey123"
+    jwt = JWTManager(app)
+    return jwt
 
-def create_token(user_id):
-    payload = {
-        "sub": str(user_id),
-        "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)
-    }
-    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+def generate_token(user_id):
+    return create_access_token(identity=str(user_id))
+
