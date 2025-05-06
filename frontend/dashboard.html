@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Dashboard</title>
-</head>
-<body>
-  <div id="navbar"></div>
-  <h2>Bienvenido al panel de control</h2>
-  <script>
-    fetch("navbar.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("navbar").innerHTML = html;
-        document.getElementById("logout").addEventListener("click", () => {
-          localStorage.removeItem("token");
-          window.location.href = "index.html";
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+    <h2>Bienvenido al panel de control</h2>
+    <img
+      src="https://img.freepik.com/vector-gratis/ilustracion-concepto-optimizacion-procesos_114360-21583.jpg"
+      alt="Imagen de dashboard"
+      class="dashboard-image"
+    />
+
+    <footer class="footer">
+      <p>Desarrollado por: <a href="https://portafolio-sigma-smoky.vercel.app/" target="_blank">Armando Mora</a></p>
+      <p> 2025 </p>
+
+    </footer>
+    <script>
+      fetch("navbar.html")
+        .then((res) => res.text())
+        .then((html) => {
+          document.getElementById("navbar").innerHTML = html;
+          document.getElementById("logout").addEventListener("click", () => {
+            localStorage.removeItem("token");
+            window.location.href = "index.html";
+          });
         });
-      });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

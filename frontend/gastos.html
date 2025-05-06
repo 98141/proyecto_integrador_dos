@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/gastos.css">
-  <title>Gastos</title>
-</head>
-<body>
-  <div id="navbar"></div>
-  <h2>Gastos</h2>
-  <input type="text" id="descripcion" placeholder="Descripción">
-  <input type="number" id="monto" placeholder="Monto">
-  <input type="text" id="categoriaId" placeholder="ID Categoría">
-  <button id="agregarGasto">Agregar</button>
-  <div id="gastos"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/gastos.css" />
+    <title>Gastos</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
 
-  <script>
-    fetch("navbar.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("navbar").innerHTML = html;
-        document.getElementById("logout").addEventListener("click", () => {
-          localStorage.removeItem("token");
-          window.location.href = "index.html";
+    <section class="container">
+      <h2>Gastos</h2>
+
+      <input type="text" id="descripcion" placeholder="Descripción" />
+      <input type="number" id="monto" placeholder="Monto" />
+      <input type="text" id="categoriaId" placeholder="ID Categoría" />
+      <button id="agregarGasto">Agregar</button>
+    </section>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Descripción</th>
+          <th>Monto</th>
+          <th>Categoría</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="gastosBody">
+        <!-- JS agregará las filas aquí -->
+      </tbody>
+    </table>
+
+    <div id="resultados" class="resultados">
+      <p>
+        <strong>Promedio de gastos:</strong> $<span id="promedio"></span>
+      </p>
+      <p>
+        <strong>Mayor Gasto:</strong> $<span id="mayor"></span>
+      </p>
+    </div>
+
+    <script>
+      fetch("navbar.html")
+        .then((res) => res.text())
+        .then((html) => {
+          document.getElementById("navbar").innerHTML = html;
+          document.getElementById("logout").addEventListener("click", () => {
+            localStorage.removeItem("token");
+            window.location.href = "index.html";
+          });
         });
-      });
-  </script>
-  <script type="module" src="script/gastos.js"></script>
-</body>
+    </script>
+    <script type="module" src="script/gastos.js"></script>
+  </body>
 </html>

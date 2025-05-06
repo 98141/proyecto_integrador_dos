@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Categorías</title>
-</head>
-<body>
-  <div id="navbar"></div>
-  <h2>Categorías</h2>
-  <input type="text" id="nuevaCategoria" placeholder="Nombre nueva categoría">
-  <button id="agregarCategoria">Agregar</button>
-  <div id="categorias"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/gastos.css" />
+    <title>Categorías</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
 
-  <script>
-    fetch("navbar.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("navbar").innerHTML = html;
-        document.getElementById("logout").addEventListener("click", () => {
-          localStorage.removeItem("token");
-          window.location.href = "index.html";
+    <section class="container">
+      <h2>Categorías</h2>
+
+      <input
+        type="text"
+        id="nuevaCategoria"
+        placeholder="Nombre nueva categoría"
+      />
+      <button id="agregarCategoria">Agregar</button>
+    </section>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>ID de Categoria</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="categoriasBody">
+        <!-- JS llenará esta tabla -->
+      </tbody>
+    </table>
+
+    <script>
+      fetch("navbar.html")
+        .then((res) => res.text())
+        .then((html) => {
+          document.getElementById("navbar").innerHTML = html;
+          document.getElementById("logout").addEventListener("click", () => {
+            localStorage.removeItem("token");
+            window.location.href = "index.html";
+          });
         });
-      });
-  </script>
-  <script type="module" src="script/categorias.js"></script>
-</body>
+    </script>
+    <script type="module" src="script/categorias.js"></script>
+  </body>
 </html>

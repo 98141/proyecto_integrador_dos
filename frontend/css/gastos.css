@@ -20,6 +20,26 @@ body {
     text-align: center;
     color: #333;
   }
+
+  table {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  table thead {
+    background-color: #699fd8;
+    color: black;
+    height: 40px;
+  }
+
+  table td {
+    padding: 10px;
+    text-align: center;
+  }
   
   /* Formulario */
  
@@ -30,12 +50,6 @@ body {
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 5px;
-  }
-  
-  input:focus,
-  select:focus {
-    border-color: #007bff;
-    outline: none;
   }
   
   .buttons {
@@ -54,47 +68,9 @@ body {
   button:hover {
     background-color: #0056b3;
   }
-  
-  /* Listado de gastos */
-  .list-container ul {
-    list-style: none;
-    padding: 0;
+
+  .resultados {
+    
+    margin: 20px auto;
+    text-align: center;
   }
-  
-  .list-container li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .list-container li span {
-    flex: 1;
-    color: #333;
-  }
-  
-  .list-container li button {
-    background-color: #dc3545;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .list-container li button.edit {
-    background-color: #ffc107;
-  }
-  
-  .list-container li button.edit:hover {
-    background-color: #e0a800;
-  }
-  
-  .list-container li button:hover {
-    background-color: #c82333;
-  }
-  
