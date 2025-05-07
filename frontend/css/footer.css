@@ -1,8 +1,16 @@
 .footer {
     display: flex;
     justify-content: space-evenly;
-    background-color: #f2f5f8;
-    padding: 20px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
+    background-color: #c4dfe2;
+}
+
+.footer a {
+    color: blue;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
